@@ -1,67 +1,59 @@
-# HeartFedGAT: Explainable Privacy-Preserving Federated Learning for Heart Disease Prediction
+# Main HeartFedGAT Implementation
 
-HeartFedGAT is an explainable and privacy-preserving federated learning framework for heart disease prediction. The proposed framework integrates a Multi-Scale Convolutional Neural Network (CNN), a Learnable Graph Layer, Graph Attention, encrypted model-update communication, Federated Averaging (FedAvg), and SHAP-based explainability.
+This directory contains the main implementation of the proposed HeartFedGAT framework for privacy-preserving and explainable heart disease prediction using federated learning.
 
-## Overview
+## Notebook
 
-Heart disease prediction involves heterogeneous clinical attributes that may contain important relationships between patients and features. At the same time, directly sharing medical data across institutions raises privacy concerns.
+### `Federated_method.ipynb`
 
-HeartFedGAT addresses these challenges by performing collaborative model training without requiring the participating clients to share their raw clinical data.
+The notebook contains the main federated learning implementation described in the research study.
 
-The proposed framework combines:
+The implementation includes the major components of the proposed framework:
 
-- Multi-Scale CNN for extracting feature representations at different receptive-field sizes
-- Learnable Graph Layer for modeling relationships among features
-- Graph Attention for learning feature importance through attention mechanisms
-- Federated Learning for collaborative training across multiple clients
-- Fernet-based encryption for protecting model updates during transmission
-- FedAvg for global model aggregation
-- SHAP for model explainability
+1. Data preprocessing
+2. Feature transformation
+3. Multi-Scale CNN
+4. Learnable Graph Layer
+5. Graph Attention
+6. Classification
+7. Federated client training
+8. Fernet-based model-update encryption
+9. Server-side aggregation
+10. Federated Averaging (FedAvg)
+11. Model evaluation
+12. SHAP-based explainability
 
-## Framework
+## Model Architecture
 
-The overall HeartFedGAT workflow is:
+The main HeartFedGAT architecture follows:
 
 ```text
-Clinical Dataset
-       |
-       v
-Data Preprocessing
-       |
-       v
-Federated Client Partitioning
-       |
-       +-------------------+
-       |                   |
-       v                   v
-    Client 1            Client 2 ... Client 3
-       |                   |
-       v                   v
- Multi-Scale CNN      Multi-Scale CNN
-       |                   |
-       v                   v
- Learnable Graph      Learnable Graph
-       |                   |
-       v                   v
- Graph Attention      Graph Attention
-       |                   |
-       v                   v
- Local Model Training
-       |
-       v
-Fernet Encryption of Model Updates
-       |
-       v
- Server-Side Decryption
-       |
-       v
- Federated Averaging (FedAvg)
-       |
-       v
- Global Model
-       |
-       v
- Heart Disease Prediction
-       |
-       v
- SHAP Explainability
+Input Features
+      |
+      v
+Multi-Scale CNN
+   /       \
+Kernel 3  Kernel 5
+   \       /
+      |
+Concatenation
+      |
+Batch Normalization
+      |
+Learnable Graph Layer
+      |
+Graph Attention
+      |
+Feature Fusion
+      |
+Residual Connection
+      |
+Global Average Pooling
+      |
+Dense (128)
+      |
+Dense (64)
+      |
+Sigmoid
+      |
+Heart Disease Prediction
